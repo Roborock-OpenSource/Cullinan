@@ -115,38 +115,30 @@ void meas(void)
         {// ok
             if (lds_buf[0] == 0xFA)
             {// measurement packet
-                if (lds_buf[1] >= 0xA0 && lds_buf[1] <= 0xF9)
-                {// valid index
-                    if (index == 0)
+                if (index == 0)
+                {
+                    index = lds_buf[1] + 1;
+                    if (index > 0xF9)
                     {
-                        index = lds_buf[1] + 1;
+                        index = 0xA0;
+                    }
+                }
+                else
+                {
+                    if (index != lds_buf[1])
+                    {
+                        TRACE("index SYNC FAIL!\n");
+                    }
+                    else
+                    {
+                        index++;
                         if (index > 0xF9)
                         {
                             index = 0xA0;
                         }
                     }
-                    else
-                    {
-                        if (index != lds_buf[1])
-                        {
-                            TRACE("index SYNC FAIL!\n");
-                        }
-                        else
-                        {
-                            index++;
-                            if (index > 0xF9)
-                            {
-                                index = 0xA0;
-                            }
-                        }
-                    }
-                    TRACE1("speed = %10f\n", (float)*(uint16_t *)&lds_buf[2] / 64);
                 }
-                else
-                {
-                    TRACE("index FAIL!\n");
-                    TRACE_ARRAY(lds_buf, 22);
-                }
+                TRACE1("speed = %10f\n", (float)*(uint16_t *)&lds_buf[2] / 64);
             }
             else
             {// information packet
@@ -388,16 +380,8 @@ void kc(void)
             {// ok
                 if (lds_buf[0] == 0xFA)
                 {// measurement packet
-                    if (lds_buf[1] >= 0xA0 && lds_buf[1] <= 0xF9)
-                    {// valid index
-                        SpeedSum += *(uint16_t *)&lds_buf[2];
-                        PacketCnt++;
-                    }
-                    else
-                    {
-                        TRACE("index FAIL!\n");
-                        TRACE_ARRAY(lds_buf, 22);
-                    }
+                    SpeedSum += *(uint16_t *)&lds_buf[2];
+                    PacketCnt++;
                 }
                 else
                 {// information packet
@@ -506,16 +490,8 @@ void tune(void)
                     {// ok
                         if (lds_buf[0] == 0xFA)
                         {// measurement packet
-                            if (lds_buf[1] >= 0xA0 && lds_buf[1] <= 0xF9)
-                            {// valid index
-                                SpeedSum += *(uint16_t *)&lds_buf[2];
-                                PacketCnt++;
-                            }
-                            else
-                            {
-                                TRACE("index FAIL!\n");
-                                TRACE_ARRAY(lds_buf, 22);
-                            }
+                            SpeedSum += *(uint16_t *)&lds_buf[2];
+                            PacketCnt++;
                         }
                         else
                         {// information packet
@@ -699,7 +675,7 @@ void t4(void)
     ErrorMin = FLT_MAX;
     ErrorMax = FLT_MIN;
     speed = 0.0f;
-    SysTimer = 2000 + 30000;   // 2 + 30 s
+    SysTimer = 2500 + 30000;   // 2.5 + 30 s
     SpeedSum = 0;
     PacketCnt = 0;
     UART5_RX_SetEmpty();
@@ -710,16 +686,8 @@ void t4(void)
         {// ok
             if (lds_buf[0] == 0xFA)
             {// measurement packet
-                if (lds_buf[1] >= 0xA0 && lds_buf[1] <= 0xF9)
-                {// valid index
-                    SpeedSum += *(uint16_t *)&lds_buf[2];
-                    PacketCnt++;
-                }
-                else
-                {
-                    TRACE("index FAIL!\n");
-                    TRACE_ARRAY(lds_buf, 22);
-                }
+                SpeedSum += *(uint16_t *)&lds_buf[2];
+                PacketCnt++;
             }
             else
             {// information packet

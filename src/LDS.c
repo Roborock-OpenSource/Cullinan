@@ -315,16 +315,8 @@ void lds(void)
     {// ok
         if (lds_buf[0] == 0xFA)
         {// measurement packet
-            if (lds_buf[1] >= 0xA0 && lds_buf[1] <= 0xF9)
-            {// valid index
-                SpeedSum += *(uint16_t *)&lds_buf[2];
-                PacketCnt++;
-            }
-            else
-            {
-                TRACE("index FAIL!\n");
-                TRACE_ARRAY(lds_buf, 22);
-            }
+            SpeedSum += *(uint16_t *)&lds_buf[2];
+            PacketCnt++;
         }
         else
         {// information packet
@@ -344,16 +336,17 @@ void lds(void)
         }
         else
         {
-            speed = 0;
+            // use previou value
+            speed = LDS_PID.ActualSpeed;
+            TRACE("NO DATA!\n");
         }
-
         duty = LDS_PID_Update(speed);
         LDS_PWM_Update(duty);
-//                TRACE5("speed = %10f duty = %f Integral = %f  Derivative = %f error = %11f\n", speed, duty, LDS_PID.Integral, LDS_PID.Derivative, LDS_PID.PreError);
-//                TRACE4("speed = %10f duty = %f Integral = %f error = %11f\n", speed, duty, LDS_PID.Integral, LDS_PID.PreError);
+//        TRACE5("speed = %10f duty = %f Integral = %f  Derivative = %f error = %11f\n", speed, duty, LDS_PID.Integral, LDS_PID.Derivative, LDS_PID.PreError);
+//        TRACE4("speed = %10f duty = %f Integral = %f error = %11f\n", speed, duty, LDS_PID.Integral, LDS_PID.PreError);
 //        TRACE3("speed = %10f duty = %f Integral = %f\n", speed, duty, LDS_PID.Integral);
-//                TRACE2("speed = %10f duty = %f\n", speed, duty);
-//                TRACE1("speed1 = %10f\n", speed);
+//        TRACE2("speed = %10f duty = %f\n", speed, duty);
+//        TRACE1("speed1 = %10f\n", speed);
         SpeedSum = 0;
         PacketCnt = 0;
         SpeedCtrlFlag = 0;
