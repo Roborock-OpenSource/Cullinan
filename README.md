@@ -82,7 +82,7 @@ checksum = (checksum + (checksum >> 15)) & 0x7FFF;
 ````
 ## Inertial measurement Unit (IMU)
 ### Introduction
-IMU is based on Bosch BMI160 6-axis MEMS sensor which integrates 16-bit 3-axis accelerometer with ultra-low-power 3-axis gyroscope. The BMI160 is available in a compact 14-pin 2.5 × 3.0 × 0.83 mm^3^ LGA package. When accelerometer and gyroscope are in full operation mode, power consumption is typically 925 μA, enabling always-on applications in battery driven devices.
+IMU is based on Bosch BMI160 6-axis MEMS sensor which integrates 16-bit 3-axis accelerometer with ultra-low-power 3-axis gyroscope. The BMI160 is available in a compact 14-pin 2.5 × 3.0 × 0.83 mm<sup>3</sup> LGA package. When accelerometer and gyroscope are in full operation mode, power consumption is typically 925 μA, enabling always-on applications in battery driven devices.
 ## BMI160 API
 ### Register operation API
 #### BMI160_ReadReg
