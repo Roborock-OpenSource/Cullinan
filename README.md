@@ -54,7 +54,7 @@ uint16_t checksum = 0;
 **Note**: Measurement packet does not contain escape character.
 
 Field Name|Size / byte|Description
-----|----|----|----
+----|----|----
 Start|1|synchronization character, fixed 0xFA
 Index|1|sample index, from 0xA0 to 0xF9. There are 4 samples in a measurement packet, and 90 packets for one round.
 Speed|2|little endian, real speed value * 64, in rpm
