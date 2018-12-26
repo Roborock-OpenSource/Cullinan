@@ -128,7 +128,7 @@ Description: Set gyroscope sensor in normal power mode
 Parameter: None  
 Return:````STATE_OK````- state OK  
 &emsp;&emsp;&emsp;&nbsp;````STATE_PENDING````- state pending  
-### BMI160 API axample
+### BMI160 API example
 ```` c
     /* Select the Output data rate, range of accelerometer sensor */
     BMI160_REG.ACC_CONF.acc_odr = BMI160_ACCEL_ODR_100HZ;
