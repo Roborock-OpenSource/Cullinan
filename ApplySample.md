@@ -5,4 +5,4 @@ https://forms.gle/SxK5jUcbVehNAaGGA<br>
 
 Sample looks like
 ====
-![image](https://https://github.com/Roborock-OpenSource/Cullinan/blob/master/Gif/pic.gif?raw=true)
+![image](https://github.com/Roborock-OpenSource/Cullinan/blob/master/Gif/pic.gif?raw=true)
