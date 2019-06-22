@@ -1,22 +1,28 @@
-﻿# Cullinan
+# Cullinan
 ## Preface
-A Lidar based on Roborock LDS (Laser Distance Sensor) for STEM.
+### Developing a LIDAR for STEM applications based on the Roborock Laser Distance Sensor (LDS)
 
-Since Roborock launched it's first robot vacuum there were many colledge students and robot fans from all world asking for more information about the LDS, and some engineers bought our robot vacuum and then disassembled it just for the LDS because even the price of the whole robot is much cheaper than the other LiDARs.
+Since the launch of the first Roborock robot vacuum, many college students and budding engineers from around the world have reached out to Roborock asking for more information about its LDS system. Some people even purchased Roborock robot vacuums and disassembled them to gain access to the LDS system because the price of the robot is significantly less than many other LIDAR systems on the market.
 
-In fact the original LDS is not very friendly for fans becasue of the limited IO and you have to make a PWM singal to control the DC motor's speed by yourself. So we are going to develop a STEM friendly version for a very low price or even maybe free for the students and research purpose.
+However, the LDS unit was not designed for use on its own making it is difficult to use. It has a limited IO, and it requires you to make your own PWM signal for motor speed control. This is why Roborock is now developing a STEM friendly version available at a low price, or potentially for free, to students and for research purposes.  
 
-So, be free to tell us what do you think about that and what feature do you expect for the LDS?
+If you have a comment you would like to offer about this system or have feature suggestions, feel free to get in touch. 
+
 ![image](https://github.com/Roborock-OpenSource/Cullinan/blob/master/Gif/pic.gif?raw=true)
 ![image](https://github.com/Roborock-OpenSource/Cullinan/blob/master/Gif/3D.gif?raw=true)
-## Feature
-* 360 degree 2D laser scanner
+## Features
+* 360-degree 2D laser scanner
 * 150mm~6000mm detection distance
 * 1.8kHz sampling rate
-* 3-axis gyroscope and 3-axis accelerometer motion data output
+* 3-axis gyroscope
+* 3-axis accelerometer
+* A Type-C integrated signal and power supply
+
 ![image](https://github.com/Roborock-OpenSource/Cullinan/blob/master/Gif/demo.gif?raw=true)
+
 ## Introduction
-Cullinan is self-developed by Roborock with independent intellectual property rights. The system consists of two parts: the LDS ranging system and the IMU inertial measurement unit. The LDS ranging system can scan and measure the environment within the range of 360° 15cm~6m. 360 samples for one round, each sample corresponds to about 1°. The scanning frequency is 5Hz. The IMU inertial measurement unit enables real-time acquisition of motion data such as acceleration and angular velocity. The measurement system interacts with external applications through the serial port.
+The Cullinan system is made up of two parts, an LDS range finder, and an IMU. The LDS system is able to scan and measure an environment in 360° to an accuracy of 6cm~15cm. It captures 360 samples each rotation, at a scanning frequency of 5Hz, corresponding to approximately a sample every 1°. As with other IMUs, the Cullinan IMU captures real-time motion data, such as acceleration and angular velocity. The IMU is able to interact with external applications through a USB port, providing an easy access point for customized implementations.
+
 ## LDS distance measurement system
 ### Specification
 
