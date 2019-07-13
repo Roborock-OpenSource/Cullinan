@@ -263,4 +263,4 @@ T= 33.314453
 T= 33.373047
 ......
 ````
-## Copyright © Beijing Roborock Technology Co., Ltd.
+##Beijing Roborock Technology Co., Ltd.
