@@ -11,7 +11,6 @@ import serial
 import threading
 
 
-
 #......Change the two parameters below...............
 T = 1
 SPOTANGLE = 188
@@ -35,11 +34,11 @@ def Loop():
     DataValid =[]
     DataLight = []
     Data = []
-    
+
     while True:
         if thread_should_close == 1:
-            break;
-        
+            break
+
         start = int(ser.read().encode('hex'), 16)
         if start != 0xfa:
             packageLost = 1
@@ -47,13 +46,13 @@ def Loop():
         index = int(ser.read().encode('hex'), 16)
         if index < 0xa0 or index > 0xf9:
             packageLost = 1
-            continue;
-        
+            continue
+
         if packageLost == 1:
             packageLost = 0
             pLost = pLost + 1
-            #print "\33[93mPackage Lost: %05d\33[0m" %(pLost)
-        
+            #print("\33[93mPackage Lost: %05d\33[0m" %(pLost))
+
         speed = int(ser.read().encode('hex'), 16) + (int(ser.read().encode('hex'), 16) << 8)
         speed = speed*1.0/64
         for i in range(4):
@@ -64,7 +63,7 @@ def Loop():
             warning = 1 if dist & 0x4000 != 0 else 0
             err = 0 if dist & 0x8000 == 0 else dist & 0xff
             hudu = math.radians(Angle)
-            
+
             Data.append(valid)
             DataLight.append(intn)
             if err == 0:
@@ -79,7 +78,7 @@ def Loop():
                 nWaring = nWaring + 1
                 xa[alpha%TT]= 0
                 ya[alpha%TT]= 0
-            
+
             if alpha % TT == 0:
                 N1 = float(len(DataValid))
                 N2 = float(len(Data))
@@ -96,13 +95,13 @@ def Loop():
                 plt.figtext(0.9,0.7,figtext,ha = 'center',fontsize=15)
                 plt.draw()
             alpha = alpha+1
-            
+
             if err != 0:
-                print "\33[91m%09d %03d: %5d %5d %d %#04x\33[0m" %(alpha ,Angle,valid, intn,warning,err)
+                print("\33[91m%09d %03d: %5d %5d %d %#04x\33[0m" %(alpha ,Angle,valid, intn,warning,err))
             elif warning != 0:
-                print "\33[95m%09d %03d: %5d %5d %d %#04x\33[0m" %(alpha ,Angle,valid, intn,warning,err)
+                print("\33[95m%09d %03d: %5d %5d %d %#04x\33[0m" %(alpha ,Angle,valid, intn,warning,err))
             else:
-                print "\33[92m%09d %03d: %5d %5d %d %#04x\33[0m" %(alpha ,Angle,valid, intn,warning,err)
+                print("\33[92m%09d %03d: %5d %5d %d %#04x\33[0m" %(alpha ,Angle,valid, intn,warning,err))
     ser.close()
 
 tsk = []
@@ -115,5 +114,3 @@ thread_should_close = 1
 for tt in tsk:
     tt.join()
 plt.close()
-
-
